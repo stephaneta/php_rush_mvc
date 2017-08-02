@@ -1,4 +1,7 @@
-<?php require '../Config/core.php' ?>
+<?php
+session_start();
+require '../Config/core.php'
+?>
 
 <!DOCTYPE html>
 <html>
@@ -13,5 +16,6 @@
 
 
     <a href="user/login">login</a>
+    <a href="user/register">register</a>
   </body>
 </html>

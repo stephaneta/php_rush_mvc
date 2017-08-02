@@ -29,7 +29,7 @@ class Database
   }
 
 
-  public function readOne($id, $table, $fields = array())
+  public function readOneWithId($id, $table, $fields = array())
   {
     $str = '';
     for($i=0;$i<count($fields);$i++)
@@ -38,9 +38,28 @@ class Database
     }
     $str = substr($str, 0, -2);
     $query = "SELECT ".$str." FROM ".$table." WHERE id = ".$id."";
+    var_dump($query);
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($id));
+    $res = $tmp->fetch(PDO::FETCH_ASSOC);
+    return $res;
+  }
+
+  public function readOneWithEmail($email, $table, $fields = array())
+  {
+    $str = '';
+    for($i=0;$i<count($fields);$i++)
+    {
+      $str .= $fields[$i].', ';
+    }
+    $str = substr($str, 0, -2);
+    $query = "SELECT $str FROM $table WHERE email = '".$email."'";
+    var_dump($query);
+    echo '<br>';
+    $pdo = $this->getConnection();
+    $tmp = $pdo->prepare($query);
+    $tmp->execute(array($email));
     $res = $tmp->fetch(PDO::FETCH_ASSOC);
     return $res;
   }

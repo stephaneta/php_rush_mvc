@@ -22,15 +22,15 @@ class User{
 
   protected function setAttributes($queryResult)
   {
-    $user = new User();
+    $user = new User($this->db);
     $user->setId($queryResult['id']);
-    $user->setId($queryResult['username']);
-    $user->setId($queryResult['hashedPassword']);
-    $user->setId($queryResult['email']);
-    $user->setId($queryResult['groupe']);
-    $user->setId($queryResult['status']);
-    $user->setId($queryResult['creation_date']);
-    $user->setId($queryResult['edition_date']);
+    $user->setUsername($queryResult['username']);
+    $user->setHashedPassword($queryResult['hashedPassword']);
+    $user->setEmail($queryResult['email']);
+    $user->setGroupe($queryResult['groupe']);
+    $user->setStatus($queryResult['status']);
+    $user->setCreationDate($queryResult['creation_date']);
+    $user->setEditionDate($queryResult['edition_date']);
     return $user;
   }
 
@@ -38,7 +38,7 @@ class User{
   public function getUserById($id)
   {
 
-    $res = $this->db->readOne($id, 'users', ['*']);
+    $res = $this->db->readOneWithId($id, 'users', ['*']);
     $user = new User($res['id'], $res['username'], $res['hashedPassword'], $res['email'], $res['groupe'], $res['status'], $res['creation_date'], $res['edition_date']);
     return $user;
   }
@@ -46,7 +46,8 @@ class User{
   public function getUserByEmail($email)
   {
 
-    $res = $this->db->readOne($email, 'users', ['*']);
+    $res = $this->db->readOneWithEmail($email, 'users', ['*']);
+    var_dump($res);
     $user = $this->setAttributes($res);
     return $user;
 
@@ -67,6 +68,7 @@ class User{
   {
     $fields = ['username' => $username, 'hashedPassword' => $hashedPassword, 'email' => $email, 'groupe' => $groupe, 'status' => $status];
     $res = $this->db->create('users', $fields);
+    $this->user = $this->setAttributes($res);
   }
 
   public function updateUser($id, $fields)
@@ -112,35 +114,39 @@ class User{
 
   //SETTERS
 
-  // public function setUsername()
-  // {
-  //   $this->username = ;
-  // }
-  // public function setHashedPassword()
-  // {
-  //   $this->creation_date = ;
-  // }
-  // public function setEmail()
-  // {
-  //   $this->creation_date = new DateTime();
-  // }
-  //
-  // public function setGroupe()
-  // {
-  //   $this->creation_date = new DateTime();
-  // }
-  // public function setStatus()
-  // {
-  //   $this->creation_date = new DateTime();
-  // }
-  public function setCreationDate()
+  public function setId($id)
   {
-    $this->creation_date = new DateTime();
+    $this->id = $id;
   }
-  // public function setEditionDate()
-  // {
-  //   $this->creation_date = new DateTime();
-  // }
+  public function setUsername($username)
+  {
+    $this->username = $username;
+  }
+  public function setHashedPassword($hashedPassword)
+  {
+    $this->hashedPassword = $hashedPassword;
+  }
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+
+  public function setGroupe($groupe)
+  {
+    $this->groupe = $groupe;
+  }
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+  public function setCreationDate($creation_date)
+  {
+    $this->creation_date = $creation_date;
+  }
+  public function setEditionDate($edition_date)
+  {
+    $this->edition_date = $edition_date;
+  }
 }
 
 

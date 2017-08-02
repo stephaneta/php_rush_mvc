@@ -17,16 +17,16 @@ class UsersController extends AppController{
     if(isset($_POST['email']) && isset($_POST["password"]))
     {
         $user = $this->model->getUserByEmail($_POST['email']);
-        if (password_verify($_POST["password"], $user->getHashedPassword()) == true)
+        if (sha1($_POST["password"]) == $user->getHashedPassword())
         {
           echo 'jjjjjjjjjjjjjjjjjjjjj';
             $_SESSION['user'] = $_POST['email'];
-            //$this->render('Layouts/home.php');
+            $this->render('Layouts/home.php');
             return;
         }
         else
         {
-          echo 'hhhhhhhhhhhhhhhhh';
+          echo $user->getHashedPassword();
           $_SESSION['errors'] = "Incorrect email/password";
         }
     }
@@ -61,62 +61,46 @@ class UsersController extends AppController{
   {
     $errors = [];
     $_SESSION['errors'] = '';
-    //$checkError = true;
+
     if(!isset($name) || !isset($email) || !isset($password) || !isset($passwordConfirm))
     {
     $errors[] = "Veuillez remplir tous les champs";
     $_SESSION["errors"] = $errors;
-    //$checkError = false;
+
     }
-    else
-    {
-      unset($_SESSION["errors"]);
-    }
+
 
     if(strlen($name)<3 || strlen($name)>10)
     {
     $errors[] = "Invalid name";
     $_SESSION["errors"] = $errors;
-    //$checkError = false;
+
     }
-    else
-    {
-      unset($_SESSION["errors"]);
-    }
+
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))
     {
   $errors[] = "Invalid email";
     $_SESSION["errors"] = $errors;
-    //$checkError = false;
+
     }
-    else
-    {
-      unset($_SESSION["errors"]);
-    }
+
 
     if(in_array(strlen($password), range(8, 20)))
     {
     $errors[] = "Invalid password";
     $_SESSION["errors"] = $errors;
-    //$checkError = false;
+
     }
-    else
-    {
-      unset($_SESSION["errors"]);
-    }
+
 
     if ($password != $passwordConfirm)
     {
     $errors[] = "Passwords are not identical";
     $_SESSION["errors"] = $errors;
-    //$checkError = false;
+
     }
 
-    else
-    {
-      unset($_SESSION["errors"]);
-    }
     if (empty($_SESSION['errors']))
     {
       return true;

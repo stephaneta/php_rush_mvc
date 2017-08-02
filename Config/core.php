@@ -1,8 +1,8 @@
 <?php
-require 'db.php';
+include_once 'db.php';
 require '../dispatcher.php';
 require 'configuration.php';
-include '../Models/User.php';
+include_once '../Models/User.php';
 
 $db = Database::getInstance();
 $dispatcher = new Dispatcher();

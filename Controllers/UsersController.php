@@ -10,8 +10,9 @@ class UsersController extends AppController{
 
   public function login()
   {
-    echo 'hello';
-    require('../Views/Users/login.php')
+
+    require('../Views/Users/login.php');
+    $this->render();
     // if(isset($_POST['email']) && isset($_POST["password"]))
     // {
     //     $user = $this->User->getUserByEmail();
@@ -28,7 +29,7 @@ class UsersController extends AppController{
     // }
   }
 
- }
+
 
 }
 

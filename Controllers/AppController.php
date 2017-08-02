@@ -1,6 +1,6 @@
 <?php
 
-require '../Config/db.php';
+include_once '../Config/db.php';
 
 class AppController{
 
@@ -17,6 +17,7 @@ class AppController{
     {
       require __class__.__function__.'.html';
     }
+    require $view;
   }
 
   public function beforeRender()

@@ -1,8 +1,6 @@
 <?php
 
-$path = __DIR__;
-
-$path = substr($path, 0, -6);
+$path = '/php_rush_mvc/';
 
 define('PATH', $path);
 

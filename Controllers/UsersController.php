@@ -11,27 +11,6 @@ class UsersController extends AppController{
     //var_dump ($this->model);
   }
 
-  public function login()
-  {
-
-    if(isset($_POST['email']) && isset($_POST["password"]))
-    {
-        $user = $this->model->getUserByEmail($_POST['email']);
-        if (sha1($_POST["password"]) == $user->getHashedPassword())
-        {
-          echo 'jjjjjjjjjjjjjjjjjjjjj';
-            $_SESSION['user'] = $_POST['email'];
-            $this->render('Layouts/home.php');
-            return;
-        }
-        else
-        {
-          echo $user->getHashedPassword();
-          $_SESSION['errors'] = "Incorrect email/password";
-        }
-    }
-    $this->render();
-  }
   public function register()
   {
     if($_POST)
@@ -45,6 +24,7 @@ class UsersController extends AppController{
       {
         $user = $this->model;
         $user->createUser($username, $password, $email);
+        $_SESSION['auth'] = $user->getEmail();
         $this->render('Layouts/home.php');
       }
       else{
@@ -55,6 +35,39 @@ class UsersController extends AppController{
     {
       $this->render();
     }
+  }
+
+  public function login()
+  {
+
+    if(isset($_POST['email']) && isset($_POST["password"]))
+    {
+        $user = $this->model->getUserByEmail($_POST['email']);
+        if (sha1($_POST["password"]) == $user->getHashedPassword())
+        {
+            $_SESSION['auth'] = $user->getEmail();
+            $this->render('Layouts/home.php');
+            return;
+        }
+        else
+        {
+          echo $user->getHashedPassword();
+          $_SESSION['errors'] = "Incorrect email/password";
+        }
+    }
+    $this->render();
+  }
+
+  public function logout($id)
+  {
+    $user = $this->model->getUserById();
+    if($user->getId() == $id)
+    {
+      $email = $user->getEmail();
+      unset($_SESSION['auth'][$email]);
+      $this->render('Layouts/home.php')
+    }
+    else $this>login();
   }
 
   function checkRegistrationForm($name, $email, $password, $passwordConfirm)

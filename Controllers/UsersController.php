@@ -28,6 +28,7 @@ class UsersController extends AppController{
         $password = sha1($password);
         $user->createUser($username, $password, $email);
         $_SESSION['auth'] = $user->getEmail();
+        $_SESSION['groupe'] = $user->getGroupe();
         $this->render('Layouts/home.php');
       }
       else{
@@ -54,6 +55,7 @@ class UsersController extends AppController{
         if (sha1($_POST["password"]) == $user->getHashedPassword())
         {
             $_SESSION['auth'] = $user->getEmail();
+            $_SESSION['groupe'] = $user->getGroupe();
             $this->render('Layouts/home.php');
             return;
         }
@@ -78,7 +80,8 @@ class UsersController extends AppController{
     echo'in';
     echo '<br>';
     unset($_SESSION['auth']);
-    $this->render('Layouts/home.php');
+    unset($_SESSION['groupe']);
+    $this->render('login.php');
 
   }
 
@@ -226,12 +229,6 @@ class UsersController extends AppController{
       }
       $_SESSION['variables'] = $usersArray;
       $this->render();
-    }
-
-    static function isAdmin($email)
-    {
-      $groupe = $this->getUserByEmail($email)->getGroupe();
-      return $groupe;
     }
 
 }

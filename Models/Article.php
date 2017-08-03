@@ -128,4 +128,10 @@ class Article
  {
    $this->creation_user = $creation_user;
  }
+
+ public function setTag() {
+  $res = $this->db->readOneWithEmail($creation_date, 'article"', ['*']);
+  $article = "SELECT * FROM article";
+  $tag = array($article, [*]);
+}
 ?>

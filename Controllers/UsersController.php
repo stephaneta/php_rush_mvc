@@ -47,6 +47,7 @@ class UsersController extends AppController{
     if(isset($_SESSION['auth']))
     {
       $this->render('Layouts/home.php');
+      return;
     }
 
     if(isset($_POST['email']) && isset($_POST["password"]))
@@ -82,6 +83,7 @@ class UsersController extends AppController{
     unset($_SESSION['auth']);
     unset($_SESSION['groupe']);
     $this->render('login.php');
+    return;
 
   }
 
@@ -90,7 +92,7 @@ class UsersController extends AppController{
     $email = $_SESSION['auth'];
 
     $user = $this->model->getUserByEmail($email);
-    var_dump($user);
+
     if(isset($_SESSION['errors']))
       $_SESSION['errors'] = "";
     if($_POST)
@@ -104,7 +106,7 @@ class UsersController extends AppController{
       {
         $password = sha1($password);
         $fields = ['username' => $username, 'email' => $email, 'hashedPassword' => $password];
-        $user->updateUser($id, $fields);
+        $user->updateUser($user->getId(), $fields);
 
         $this->render('Layouts/home.php');
       }
@@ -116,6 +118,15 @@ class UsersController extends AppController{
     {
       $this->render('',['user' => $user]);
     }
+  }
+
+  public function delete($id)
+  {
+    $user = $this->model->getUserById($id);
+    unset($_SESSION['auth']);
+    unset($_SESSION['groupe']);
+    $user->deleteUser($id);
+    $this->render('register.php');
   }
 
   public function adminModify($id)
@@ -150,7 +161,21 @@ class UsersController extends AppController{
     }
   }
 
-  function checkForm($name, $email, $password, $passwordConfirm)
+  public function adminDelete($id)
+  {
+    echo 'jjjjjjjjjjjj';
+    $user = $this->model->getUserById($id);
+    if($user->getGroupe() == 'admin')
+    {
+      $_SESSION['errors'] = "Vous ne pouvez pas supprimer un administrateur";
+      $this->render();
+      return;
+    }
+    $user->deleteUser($id);
+    $this->render('index.php');
+  }
+
+  public function checkForm($name, $email, $password, $passwordConfirm)
   {
     $errors = [];
     $_SESSION['errors'] = '';
@@ -207,7 +232,6 @@ class UsersController extends AppController{
       if(!isset($_SESSION['auth']))
         $this->render('user/login.php');
 
-
       $user = $this->model->getUserByEmail($_SESSION['auth']);
       var_dump($user->getUsername());echo'allo<br>';
       if($user->getGroupe() != 'admin')
@@ -227,8 +251,8 @@ class UsersController extends AppController{
 
         $usersArray[] = [$user['id'], $user['hashedPassword'], $user['username'], $user['email'], $user['groupe'], $user['status']];
       }
-      $_SESSION['variables'] = $usersArray;
-      $this->render();
+
+      $this->render('', ['users' => $usersArray]);
     }
 
 }

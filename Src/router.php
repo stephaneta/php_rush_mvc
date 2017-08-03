@@ -24,9 +24,21 @@ class Router{
       'controller' => 'Users',
       'action'     => 'index'
     ],
-    PATH.'user/adminModify' => [
+    PATH.'user/modify' => [
+      'controller' => 'Users',
+      'action' => 'modify'
+    ],
+    PATH.'user/delete' => [
+      'controller' => 'Users',
+      'action' => 'adminDelete'
+    ],
+    PATH.'users/adminModify' => [
       'controller' => 'Users',
       'action' => 'adminModify'
+    ],
+    PATH.'users/adminDelete' => [
+      'controller' => 'Users',
+      'action' => 'adminDelete'
     ],
 
   ];

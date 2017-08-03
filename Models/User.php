@@ -74,7 +74,7 @@ class User{
 
   public function deleteUser($id)
   {
-
+    $this->db->delete($id, 'users');
   }
 
 

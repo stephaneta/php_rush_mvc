@@ -137,6 +137,7 @@ class Database
   public function delete($id, $table)
   {
     $query = "DELETE FROM $table WHERE id = $id";
+    var_dump($query);
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($id));

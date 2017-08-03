@@ -1,5 +1,5 @@
 
-<?php $user = $array['user'];?>
+<?php $user = $array['users'];?>
 <?php if(!empty($_SESSION['errors'])): ?>
   <ul>
     <?php foreach ($_SESSION['errors'] as $error) : ?>
@@ -20,3 +20,4 @@
   <input type="password" name="password_confirmation" value=""><br>
   <input type='submit' value='Submit'>
 </form>
+<a href="user/delete?id=<?=$user->getId();?>">Delete your account</a>

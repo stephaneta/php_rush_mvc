@@ -6,7 +6,6 @@
       <li>lnlk</li>
       <li>lnlk</li>
       <?php if(isset($_SESSION['groupe']) && $_SESSION['groupe'] == 'admin'): ?>
-
         <p><?=$_SESSION['auth'];?></p>
         <ul>
           <p>admin panel</p>

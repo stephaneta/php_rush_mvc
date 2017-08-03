@@ -12,14 +12,14 @@ class AppController{
     return $this->model;
   }
 
-  public function render($view = null)
+  public function render($view = null, $array = [])
   {
 
     $this->viewPath = str_replace('/Controllers', '', $this->viewPath);
 
     if(preg_match( '/Layouts/', $view))
     {
-echo'kjnhkjuhnkjljnljnlk,l'.'<br>';
+
       var_dump($this->viewPath.$view);
       require $this->viewPath.$view;
       return;

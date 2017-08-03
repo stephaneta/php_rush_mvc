@@ -43,7 +43,7 @@ class UsersController extends AppController{
   public function login()
   {
 
-    if(!isset($_SESSION['auth']))
+    if(isset($_SESSION['auth']))
     {
       $this->render('Layouts/home.php');
     }
@@ -82,9 +82,43 @@ class UsersController extends AppController{
 
   }
 
+  public function modify()
+  {
+    $email = $_SESSION['auth'];
+
+    $user = $this->model->getUserByEmail($email);
+    var_dump($user);
+    if(isset($_SESSION['errors']))
+      $_SESSION['errors'] = "";
+    if($_POST)
+    {
+      $username = $_POST["username"];
+      $email = $_POST["email"];
+      $password = $_POST['password'];
+      $passwordConfirmation = $_POST['password_confirmation'];
+
+      if($this->checkForm($username, $email, $password, $passwordConfirmation))
+      {
+        $password = sha1($password);
+        $fields = ['username' => $username, 'email' => $email, 'hashedPassword' => $password];
+        $user->updateUser($id, $fields);
+
+        $this->render('Layouts/home.php');
+      }
+      else{
+        $this->render('',['user' => $user]);
+      }
+    }
+    else
+    {
+      $this->render('',['user' => $user]);
+    }
+  }
+
   public function adminModify($id)
   {
     $user = $this->model->getUserById($id);
+    var_dump($user);
     if(isset($_SESSION['errors']))
       $_SESSION['errors'] = "";
     if($_POST)
@@ -95,20 +129,21 @@ class UsersController extends AppController{
       $password = $_POST['password'];
       $passwordConfirmation = $_POST['password_confirmation'];
 
-      if($this->checkForm($username, $email, $password, $password_confirmation))
+      if($this->checkForm($username, $email, $password, $passwordConfirmation))
       {
         $password = sha1($password);
-        $user->updateUser($username, $email, $groupe, $password);
+        $fields = ['username' => $username, 'email' => $email, 'groupe' =>  $groupe, 'hashedPassword' => $password];
+        $user->updateUser($id, $fields);
 
         $this->render('Layouts/home.php');
       }
       else{
-        $this->render();
+        $this->render('',['user' => $user]);
       }
     }
     else
     {
-      $this->render();
+      $this->render('',['user' => $user]);
     }
   }
 
@@ -191,6 +226,12 @@ class UsersController extends AppController{
       }
       $_SESSION['variables'] = $usersArray;
       $this->render();
+    }
+
+    static function isAdmin($email)
+    {
+      $groupe = $this->getUserByEmail($email)->getGroupe();
+      return $groupe;
     }
 
 }

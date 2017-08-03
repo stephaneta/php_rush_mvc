@@ -25,15 +25,23 @@ class Dispatcher{
       unset($pieces[1]);
       var_dump($pieces[0]);
       $url = $pieces[0];
+      if (array_key_exists($url, $this->routes))
+      {
+        $controller = $this->routes[$url]['controller'].'Controller';
+        $action     = $this->routes[$url]['action'];
+        $ctr = new $controller();
+        $ctr->$action($_GET['id']);
+      }
     }
-
-    if (array_key_exists($url, $this->routes))
+    else if (array_key_exists($url, $this->routes))
     {
       $controller = $this->routes[$url]['controller'].'Controller';
       $action     = $this->routes[$url]['action'];
       $ctr = new $controller();
-      $ctr->$action($_GET['id']);
+      $ctr->$action();
     }
+
+
   }
 
   // static function redirect($param)

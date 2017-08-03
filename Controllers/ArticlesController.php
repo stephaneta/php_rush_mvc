@@ -1,8 +1,8 @@
 <?php
 
-include_once 'AppController';
+include_once 'AppController.php';
 
-class Articles extends AppController{
+class ArticlesController extends AppController{
 
   public function home()
   {

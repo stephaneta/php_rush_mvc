@@ -16,9 +16,14 @@ class Router{
       'controller' => 'Users',
       'action' => 'register'
     ],
-    PATH.'Articles' => 'displayArticles',
-    PATH.'Articles' => 'displayArticles',
-    PATH.'Articles' => 'displayArticles'
+    PATH.'user/logout' => [
+      'controller' => 'Users',
+      'action' => 'logout'
+    ],
+    PATH.'users/index'           => [
+      'controller' => 'Users',
+      'action'     => 'index'
+    ],
 
   ];
 }

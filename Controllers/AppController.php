@@ -19,7 +19,7 @@ class AppController{
 
     if(preg_match( '/Layouts/', $view))
     {
-
+echo'kjnhkjuhnkjljnljnlk,l'.'<br>';
       var_dump($this->viewPath.$view);
       require $this->viewPath.$view;
       return;
@@ -49,10 +49,11 @@ class AppController{
 
   }
 
-  protected function redirect($param)
-  {
-    Dispatcher::redirect($param);
-  }
+  // protected function redirect($param)
+  // {
+  //   Dispatcher::redirect($param);
+  // }
+
 
 }
 

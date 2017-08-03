@@ -53,10 +53,10 @@ class User{
 
   }
 
-  public function getUsers()
+  public function getUsersWithLimit($limit = null)
   {
 
-    $res = $this->db->readAll('users', ['*']);
+    $res = $this->db->readAll('users', ['*'], $limit);
     // foreach ($res as $user) {
     //   $user = new Users()
     //   var_dump($user);

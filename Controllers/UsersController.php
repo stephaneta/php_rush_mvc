@@ -61,16 +61,24 @@ class UsersController extends AppController{
     $this->render();
   }
 
-  public function logout($id)
+  public function logout()
   {
-    $user = $this->model->getUserById();
-    if($user->getId() == $id)
+    if (!isset($_SESSION['auth']))
     {
-      $email = $user->getEmail();
-      unset($_SESSION['auth'][$email]);
-      $this->render('Layouts/home.php');
+      $this->render('login.php');
+      return;
     }
-    else $this>login();
+    $email = $_SESSION['auth'];
+    $user = $this->model->getUserByEmail($email);
+    echo'in';
+    echo '<br>';
+    unset($_SESSION['auth']);
+    $this->render('Layouts/home.php');
+
+  }
+
+  public function modify_account(){
+
   }
 
   function checkRegistrationForm($name, $email, $password, $passwordConfirm)
@@ -123,6 +131,26 @@ class UsersController extends AppController{
     }
 
   }
+
+
+    public function index()
+    {
+      echo 'ikuhiuhj';
+      if(!isset($_SESSION['auth']))
+        $this->render('user/login.php');
+
+
+      $user = $this->model->getUserByEmail($_SESSION['auth']);
+      if($user->getGroupe() != 'admin')
+      {
+        echo 'non';
+        $this->render('home.php');
+      }
+
+
+      $users = $this->model->getUsersWithLimit(10);
+      $this->render();
+    }
 
 
 }

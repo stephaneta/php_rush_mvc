@@ -64,7 +64,7 @@ class Database
     return $res;
   }
 
-  public function readAll($table, $fields = array())
+  public function readAll($table, $fields = array(), $limit = null)
  {
    $str = '';
    for($i=0;$i<count($fields);$i++)
@@ -72,7 +72,15 @@ class Database
      $str .= $fields[$i].', ';
    }
    $str = substr($str, 0, -2);
-   $query = "SELECT ".$str." FROM ".$table."";
+   if($limit != null)
+   {
+     $query = "SELECT ".$str." FROM ".$table." LIMIT $limit";
+   }
+   else
+   {
+     $query = "SELECT ".$str." FROM ".$table."";
+   }
+
    echo '<br>';
    echo $query;
    echo '<br>';

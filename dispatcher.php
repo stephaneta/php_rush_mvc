@@ -19,13 +19,20 @@ class Dispatcher{
   public function getAction()
   {
     $url = $this->getUrl();
+    if (strstr($url, '?'))
+    {
+      $pieces = explode('?', $url);
+      unset($pieces[1]);
+      var_dump($pieces[0]);
+      $url = $pieces[0];
+    }
 
     if (array_key_exists($url, $this->routes))
     {
       $controller = $this->routes[$url]['controller'].'Controller';
       $action     = $this->routes[$url]['action'];
       $ctr = new $controller();
-      $ctr->$action();
+      $ctr->$action($_GET['id']);
     }
   }
 

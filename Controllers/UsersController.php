@@ -22,7 +22,7 @@ class UsersController extends AppController{
       $password = $_POST["password"];
       $password_confirmation = $_POST["password_confirmation"];
 
-      if($this->checkRegistrationForm($username, $email, $password, $password_confirmation))
+      if($this->checkForm($username, $email, $password, $password_confirmation))
       {
         $user = $this->model;
         $password = sha1($password);
@@ -42,6 +42,11 @@ class UsersController extends AppController{
 
   public function login()
   {
+
+    if(!isset($_SESSION['auth']))
+    {
+      $this->render('Layouts/home.php');
+    }
 
     if(isset($_POST['email']) && isset($_POST["password"]))
     {
@@ -77,11 +82,37 @@ class UsersController extends AppController{
 
   }
 
-  public function modify_account(){
+  public function adminModify($id)
+  {
+    $user = $this->model->getUserById($id);
+    if(isset($_SESSION['errors']))
+      $_SESSION['errors'] = "";
+    if($_POST)
+    {
+      $username = $_POST["username"];
+      $email = $_POST["email"];
+      $groupe = $_POST["groupe"];
+      $password = $_POST['password'];
+      $passwordConfirmation = $_POST['password_confirmation'];
 
+      if($this->checkForm($username, $email, $password, $password_confirmation))
+      {
+        $password = sha1($password);
+        $user->updateUser($username, $email, $groupe, $password);
+
+        $this->render('Layouts/home.php');
+      }
+      else{
+        $this->render();
+      }
+    }
+    else
+    {
+      $this->render();
+    }
   }
 
-  function checkRegistrationForm($name, $email, $password, $passwordConfirm)
+  function checkForm($name, $email, $password, $passwordConfirm)
   {
     $errors = [];
     $_SESSION['errors'] = '';
@@ -135,23 +166,32 @@ class UsersController extends AppController{
 
     public function index()
     {
-      echo 'ikuhiuhj';
       if(!isset($_SESSION['auth']))
         $this->render('user/login.php');
 
 
       $user = $this->model->getUserByEmail($_SESSION['auth']);
+      var_dump($user->getUsername());echo'allo<br>';
       if($user->getGroupe() != 'admin')
       {
         echo 'non';
-        $this->render('home.php');
+        $this->render('Layouts/home.php');
+        return;
       }
 
 
       $users = $this->model->getUsersWithLimit(10);
+
+      echo '<br>';
+      echo '<br>';
+      $usersArray = [];
+      foreach ($users as  $user) {
+
+        $usersArray[] = [$user['id'], $user['hashedPassword'], $user['username'], $user['email'], $user['groupe'], $user['status']];
+      }
+      $_SESSION['variables'] = $usersArray;
       $this->render();
     }
-
 
 }
 

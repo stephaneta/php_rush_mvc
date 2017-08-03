@@ -39,7 +39,7 @@ class User{
   {
 
     $res = $this->db->readOneWithId($id, 'users', ['*']);
-    $user = new User($res['id'], $res['username'], $res['hashedPassword'], $res['email'], $res['groupe'], $res['status'], $res['creation_date'], $res['edition_date']);
+    $user =$this->setAttributes($res);
     return $user;
   }
 
@@ -47,7 +47,6 @@ class User{
   {
 
     $res = $this->db->readOneWithEmail($email, 'users', ['*']);
-    var_dump($res);
     $user = $this->setAttributes($res);
     return $user;
 
@@ -57,11 +56,8 @@ class User{
   {
 
     $res = $this->db->readAll('users', ['*'], $limit);
-    // foreach ($res as $user) {
-    //   $user = new Users()
-    //   var_dump($user);
-    //   echo'<br>';
-    // }
+    return $res;
+
   }
 
   public function createUser($username, $hashedPassword, $email, $groupe = 'user', $status = 0)
@@ -86,6 +82,10 @@ class User{
   public function getId()
   {
     return $this->id;
+  }
+  public function getUsername()
+  {
+    return $this->username;
   }
   public function getHashedPassword()
   {

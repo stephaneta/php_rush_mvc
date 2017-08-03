@@ -20,9 +20,13 @@ class Router{
       'controller' => 'Users',
       'action' => 'logout'
     ],
-    PATH.'users/index'           => [
+    PATH.'users/index' => [
       'controller' => 'Users',
       'action'     => 'index'
+    ],
+    PATH.'user/adminModify' => [
+      'controller' => 'Users',
+      'action' => 'adminModify'
     ],
 
   ];

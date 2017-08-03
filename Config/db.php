@@ -88,7 +88,6 @@ class Database
    $tmp = $pdo->prepare($query);
    $tmp->execute();
    $res = $tmp->fetchAll(PDO::FETCH_ASSOC);
-   var_dump($res);
    return $res;
  }
 

@@ -51,7 +51,7 @@ class AppController{
 
   protected function redirect($param)
   {
-
+    Dispatcher::redirect($param);
   }
 
 }

@@ -13,16 +13,19 @@ class UsersController extends AppController{
 
   public function register()
   {
+    if(isset($_SESSION['errors']))
+      $_SESSION['errors'] = "";
     if($_POST)
     {
       $username = $_POST["username"];
       $email = $_POST["email"];
-      $password = sha1($_POST["password"]);
-      $password_confirmation = sha1($_POST["password_confirmation"]);
+      $password = $_POST["password"];
+      $password_confirmation = $_POST["password_confirmation"];
 
       if($this->checkRegistrationForm($username, $email, $password, $password_confirmation))
       {
         $user = $this->model;
+        $password = sha1($password);
         $user->createUser($username, $password, $email);
         $_SESSION['auth'] = $user->getEmail();
         $this->render('Layouts/home.php');
@@ -65,7 +68,7 @@ class UsersController extends AppController{
     {
       $email = $user->getEmail();
       unset($_SESSION['auth'][$email]);
-      $this->render('Layouts/home.php')
+      $this->render('Layouts/home.php');
     }
     else $this>login();
   }
@@ -93,13 +96,13 @@ class UsersController extends AppController{
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))
     {
-  $errors[] = "Invalid email";
-    $_SESSION["errors"] = $errors;
+      $errors[] = "Invalid email";
+      $_SESSION["errors"] = $errors;
 
     }
 
 
-    if(in_array(strlen($password), range(8, 20)))
+    if(strlen($password) < 8  || strlen($password) > 20)
     {
     $errors[] = "Invalid password";
     $_SESSION["errors"] = $errors;

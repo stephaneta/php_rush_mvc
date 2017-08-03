@@ -2,6 +2,7 @@
 require 'Src/router.php';
 include_once 'Models/User.php';
 include_once 'Controllers/UsersController.php';
+include_once 'Controllers/ArticlesController.php';
 
 class Dispatcher{
 
@@ -27,8 +28,23 @@ class Dispatcher{
       $ctr = new $controller();
       $ctr->$action();
     }
-
   }
+
+  // static function redirect($param)
+  // {
+  //   var_dump($param);
+  //   $routes = Router::$routes;
+  //   $url = PATH.'Views'.$param;
+  //   var_dump($url);
+  //   if (array_key_exists($url, $routes))
+  //   {
+  //     var_dump($url);
+  //     $controller = $this->routes[$url]['controller'].'Controller';
+  //     $action     = $this->routes[$url]['action'];
+  //     $ctr = new $controller();
+  //     $ctr->$action();
+  //   }
+  // }
 }
 
  ?>

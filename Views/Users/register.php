@@ -5,6 +5,15 @@
     <title>Register</title>
   </head>
   <body>
+    <?php
+      if(!empty($_SESSION['errors'])): ?>
+        <ul>
+    <?php
+        foreach ($_SESSION['errors'] as $error) : ?>
+          <li><?=$error;?></li>
+    <?php endforeach;?>
+        </ul>
+    <?php endif;?>
     <form action="" method="post">
       <label for='username' >username: </label>
       <input type='text' name='username' id='name' minlenght='3' maxlenght='10'/>

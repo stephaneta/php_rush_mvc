@@ -9,8 +9,8 @@
         <p><?=$_SESSION['auth'];?></p>
         <ul>
           <p>admin panel</p>
-          <li><a href="../users/index">Manage users</a></li>
-          <li><a href="../articles/index">Manage articles</a></li>
+          <li><a href="users/index">Manage users</a></li>
+          <li><a href="articles/index">Manage articles</a></li>
       </ul>
     <?php endif; ?>
     </ul>

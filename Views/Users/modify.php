@@ -1,5 +1,5 @@
 
-<?php $user = $array['users'];?>
+<?php $user = $array['user'];?>
 <?php if(!empty($_SESSION['errors'])): ?>
   <ul>
     <?php foreach ($_SESSION['errors'] as $error) : ?>
@@ -21,3 +21,5 @@
   <input type='submit' value='Submit'>
 </form>
 <a href="user/delete?id=<?=$user->getId();?>">Delete your account</a>
+
+<a href="../">return</a>

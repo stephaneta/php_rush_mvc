@@ -26,3 +26,5 @@
   </select>
   <input type='submit' value='Submit'>
 </form>
+
+<a href="../users/index">Return</a>

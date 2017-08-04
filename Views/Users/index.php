@@ -1,6 +1,15 @@
-<?php
-$users = $array['users'];
-foreach ($users as $user) : ?>
+<?php $users = $array['users']; ?>
+
+<?php if(!empty($_SESSION['errors'])): ?>
+  <ul>
+    <?php foreach ($_SESSION['errors'] as $error) : ?>
+      <li><?=$error;?></li>
+
+<?php endforeach;?>
+  </ul>
+ <?php endif; ?>
+
+<?php foreach ($users as $user) : ?>
   <div class="user">
     <ul>
       <li><?=$user[2];?></li>

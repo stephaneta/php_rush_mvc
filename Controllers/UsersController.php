@@ -125,7 +125,7 @@ class UsersController extends AppController{
     unset($_SESSION['auth']);
     unset($_SESSION['groupe']);
     $user->deleteUser($id);
-    $this->render('register.php');
+    $this->register();
   }
 
   public function adminModify($id)
@@ -148,7 +148,7 @@ class UsersController extends AppController{
         $fields = ['username' => $username, 'email' => $email, 'groupe' =>  $groupe, 'hashedPassword' => $password];
         $user->updateUser($id, $fields);
 
-        $this->render('Layouts/home.php');
+        $this->index();
       }
       else{
         $this->render('',['user' => $user]);
@@ -162,16 +162,18 @@ class UsersController extends AppController{
 
   public function adminDelete($id)
   {
-    echo 'jjjjjjjjjjjj';
+    if(isset($_SESSION['errors']))
+      unset($_SESSION['errors']);
     $user = $this->model->getUserById($id);
     if($user->getGroupe() == 'admin')
     {
-      $_SESSION['errors'] = "Vous ne pouvez pas supprimer un administrateur";
-      $this->render();
+      $error[] = "Vous ne pouvez pas supprimer un administrateur";
+      $_SESSION['errors'] = $error;
+      $this->index();
       return;
     }
     $user->deleteUser($id);
-    $this->render('index.php');
+    $this->index();
   }
 
   public function checkForm($name, $email, $password, $passwordConfirm)
@@ -232,19 +234,14 @@ class UsersController extends AppController{
         $this->render('user/login.php');
 
       $user = $this->model->getUserByEmail($_SESSION['auth']);
-      var_dump($user->getUsername());echo'allo<br>';
       if($user->getGroupe() != 'admin')
       {
         echo 'non';
         $this->render('Layouts/home.php');
         return;
       }
-
-
       $users = $this->model->getUsersWithLimit(10);
 
-      echo '<br>';
-      echo '<br>';
       $usersArray = [];
       foreach ($users as  $user) {
 
@@ -252,6 +249,9 @@ class UsersController extends AppController{
       }
 
       $this->render('', ['users' => $usersArray]);
+      if(isset($_SESSION['errors']))
+        unset($_SESSION['errors']);
+      return;
     }
 
 }

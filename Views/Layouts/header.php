@@ -20,9 +20,7 @@
     </div>
     <div class="user">
       <ul>
-        <li><a href="user/login">login</a></li>
         <li><a href="user/logout">logout</a></li>
-        <li><a href="user/register">register</a></li>
         <li><a href="user/modify">modify account</a></li>
       </ul>
     </div>

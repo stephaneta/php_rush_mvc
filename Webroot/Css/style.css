@@ -12,8 +12,14 @@ header ul li{
   background-color: grey;
 }
 
-.article{
+.articlesList .article{
   border: 1px solid black;
   width: 600px;
   margin: 10px;
+}
+
+.sideMenu{
+  width: 25%;
+  height: 400px;
+  display: inline-block;
 }

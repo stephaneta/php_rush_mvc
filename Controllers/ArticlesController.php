@@ -24,7 +24,18 @@ class ArticlesController extends AppController{
       $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author'], $val['creation_date'], $val['edition_date']];
     }
 
+
     $this->render('Layouts/home.php', ["articles" => $articleArray]);
+  }
+
+  public function view($id)
+  {
+    $article = $this->model->getArticleById($id);
+    $articleArray = [];
+    $articleArray[] = [$article->getId(), $article->getTitle(), $article->getContent(), $article->getAuthor(), $article->getCreationDate(), $article->getEditionDate()];
+
+    //$this->header('view');
+    $this->render('', ['article' => $articleArray]);
   }
 
 

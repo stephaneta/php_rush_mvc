@@ -44,6 +44,14 @@ class Router{
       'controller' => 'Users',
       'action' => 'adminDelete'
     ],
+    PATH.'article/view' => [
+      'controller' => 'Articles',
+      'action' => 'view'
+    ],
+    PATH.'article/create' => [
+      'controller' => 'Articles',
+      'action' => 'create'
+    ],
 
   ];
 }

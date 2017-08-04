@@ -17,13 +17,12 @@ class Article
 
  protected function setAttributes($queryResult) {
    $article = new Article($this->db);
-   $article = setId($queryResult['id']);
-   $article = setContent($queryResult['content']);
-   $article = setTitle($queryResult['title']);
-   $article = setAuthor($queryResult['author']);
-   $article = setCreation_date($queryResult['creation_date']);
-   $article = setEdition_date($queryResult['edition_date']);
-
+   $article->setId($queryResult['id']);
+   $article->setContent($queryResult['content']);
+   $article->setTitle($queryResult['title']);
+   $article->setAuthor($queryResult['author']);
+   $article->setCreationdate($queryResult['creation_date']);
+   $article->setEditionDate($queryResult['edition_date']);
    return $article;
  }
 
@@ -31,7 +30,7 @@ class Article
  {
 
    $res = $this->db->readOneWithId($id, 'articles', ['*']);
-   $article = new Article($res['id'], $res['content'], $res['title'], $res['creation_date'], $res['edition_date'], $res['author']);
+   $article = $this->setAttributes($res);
    return $article;
  }
 
@@ -88,8 +87,8 @@ class Article
    return $this->edition_date;
  }
 
- public function getCreationUser() {
-   return $this->creation_user;
+ public function getAuthor() {
+   return $this->author;
  }
 
  //SETTERS
@@ -98,7 +97,7 @@ class Article
    $this->id = $id;
  }
 
- public function setContent($id)
+ public function setContent($content)
  {
    $this->content = $content;
  }
@@ -120,7 +119,7 @@ class Article
 
  public function setAuthor($author)
  {
-   $this->$author = $author;
+   $this->author = $author;
  }
 
  public function setTag() {

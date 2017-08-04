@@ -20,7 +20,7 @@
         <p><?=$article[2];?></p>
         <p><?=$article[3];?></p>
         <p><?=$article[4];?></p>
-        <a href="#">View Article</a>
+        <a href="article/view?id=<?=$article[0];?>">View Article</a>
         <?php if($_SESSION['groupe'] == 'admin'): ?>
           <a href="#">Edit Article</a>
           <a href="#">Delete Article</a>
@@ -28,6 +28,9 @@
 
       </div>
     <?php endforeach; ?>
+  </div>
+  <div class="sideMenu">
+    <a href="article/create">Create article</a>
   </div>
 
 

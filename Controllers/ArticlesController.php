@@ -68,8 +68,37 @@ class ArticlesController extends AppController{
     }
   }
 
-  public function modifyArticle()
+  public function modify($id)
   {
+    $article = $this->model->getArticleById($id);
+    if(isset($_SESSION['errors']))
+      $_SESSION['errors'] = "";
+    if($_POST)
+    {
+      $title = $_POST["title"];
+      $content = $_POST["content"];
+
+      if($this->checkForm($title, $content))
+      {
+        $article = $this->model;
+        $fields = ['title' => $title, 'content' => $content];
+        $article->updateArticle($id, $fields);
+        $this->header('../home');
+        $this->home();
+      }
+      else{
+        $this->render('', ['article' => $article]);
+      }
+    }
+    else
+    {
+      $this->render('', ['article' => $article]);
+    }
+    //Check user is author
+    // $author_id = $article->getAuthor_id();
+    // $usersController = new UsersController();
+    // $userModel = $usersController->loadModel('user');
+    // $author = $userModel->getUserById($author_id);
 
   }
 

@@ -54,7 +54,7 @@ class Router{
     ],
     PATH.'article/modify' => [
       'controller' => 'Articles',
-      'action' => 'modifyArticle'
+      'action' => 'modify'
     ],
 
   ];

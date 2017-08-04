@@ -21,7 +21,6 @@ class Dispatcher{
     $url = $this->getUrl();
     if (strstr($url, '?'))
     {
-
       $pieces = explode('?', $url);
       unset($pieces[1]);
       var_dump($pieces[0]);

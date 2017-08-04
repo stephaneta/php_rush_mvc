@@ -4,6 +4,10 @@ require '../Config/configuration.php';
 class Router{
 
   static $routes = [
+    PATH           => [
+      'controller' => 'Articles',
+      'action'     => 'home'
+    ],
     PATH.'home'           => [
       'controller' => 'Articles',
       'action'     => 'home'

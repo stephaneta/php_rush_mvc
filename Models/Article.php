@@ -37,10 +37,18 @@ class Article
  public function getArticleByTitle($title)
  {
 
-   $res = $this->db->readOneWithTitle($title, 'article', ['*']);
+   $res = $this->db->readOneWithTitle($title, 'articles', ['*']);
    $article = $this->setAttributes($res);
    return $article;
  }
+
+ // public function getArticlesByAuthor($author)
+ // {
+ //
+ //   $res = $this->db->readOneWithVariable('author_id', $author, 'articles', ['*']);
+ //   $article = $this->setAttributes($res);
+ //   return $articles;
+ // }
 
  public function createArticle($title, $content, $author) {
      $fields = ['content' => $content, 'title' => $title, 'author_id' => $author];
@@ -55,7 +63,7 @@ class Article
 
  public function deleteArticle($id)
  {
-
+   $this->db->delete($id, 'articles');
  }
 
  public function listByDescDate() {

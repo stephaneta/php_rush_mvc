@@ -25,7 +25,7 @@ class ArticlesController extends AppController{
       $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author_id'], $val['creation_date'], $val['edition_date']];
     }
 
-
+    //$this->header('home');
     $this->render('Layouts/home.php', ["articles" => $articleArray]);
   }
 
@@ -36,6 +36,22 @@ class ArticlesController extends AppController{
     $articleArray[] = [$article->getId(), $article->getTitle(), $article->getContent(), $article->getAuthor_id(), $article->getCreationDate(), $article->getEditionDate()];
 
     //$this->header('view');
+    $this->render('', ['article' => $articleArray]);
+  }
+
+  public function viewByAuthor()
+  {
+    $email = $_SESSION['auth'];
+    $usersController = new UsersController();
+    $userModel = $usersController->loadModel('user');
+    $author = $userModel->getUserByEmail($email);
+    $author = $author->getid();
+    $articles = $this->model->getArticlesByAuthor($author);
+    $articleArray = [];
+    foreach ($articles as $key => $val) {
+      $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author_id'], $val['creation_date'], $val['edition_date']];
+    }
+
     $this->render('', ['article' => $articleArray]);
   }
 
@@ -57,6 +73,7 @@ class ArticlesController extends AppController{
       {
         $article = $this->model;
         $article->createArticle($title, $content, $author);
+        $this->home();
       }
       else{
         $this->render();
@@ -100,6 +117,13 @@ class ArticlesController extends AppController{
     // $userModel = $usersController->loadModel('user');
     // $author = $userModel->getUserById($author_id);
 
+  }
+
+  public function delete($id)
+  {
+    $article = $this->model->getArticleById($id);
+    $article->deleteArticle($id);
+    $this->home();
   }
 
 

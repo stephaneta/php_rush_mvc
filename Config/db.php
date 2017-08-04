@@ -29,6 +29,22 @@ class Database
   }
 
 
+  public function readOneWithVariable($key, $value, $table, $fields = array())
+  {
+    $str = '';
+    for($i=0;$i<count($fields);$i++)
+    {
+      $str .= $fields[$i].', ';
+    }
+    $str = substr($str, 0, -2);
+    $query = "SELECT ".$str." FROM ".$table." WHERE $key = ".$value."";
+    $pdo = $this->getConnection();
+    $tmp = $pdo->prepare($query);
+    $tmp->execute(array($value));
+    $res = $tmp->fetch(PDO::FETCH_ASSOC);
+    return $res;
+  }
+
   public function readOneWithId($id, $table, $fields = array())
   {
     $str = '';

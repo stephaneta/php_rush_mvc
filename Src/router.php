@@ -44,6 +44,10 @@ class Router{
       'controller' => 'Users',
       'action' => 'adminDelete'
     ],
+    PATH.'user/articles/view' => [
+      'controller' => 'Articles',
+      'action' => 'ViewByAuthor'
+    ],
     PATH.'article/view' => [
       'controller' => 'Articles',
       'action' => 'view'
@@ -55,6 +59,10 @@ class Router{
     PATH.'article/modify' => [
       'controller' => 'Articles',
       'action' => 'modify'
+    ],
+    PATH.'article/delete' => [
+      'controller' => 'Articles',
+      'action' => 'delete'
     ],
 
   ];

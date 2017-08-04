@@ -10,7 +10,7 @@
   <?php include 'header.php'; ?>
   <?php $articles = $array['articles']; ?>
   <?php if($_SESSION['groupe'] == 'admin' || $_SESSION['groupe'] == 'writer') :?>
-    <a href="#">Vos articles</a>
+    <a href="user/articles/view">Vos articles</a>
   <?php endif;?>
   <div class="articleslist">
     <?php foreach ($articles as $article): ?>
@@ -23,7 +23,7 @@
         <a href="article/view?id=<?=$article[0];?>">View Article</a>
         <?php if($_SESSION['groupe'] == 'admin'): ?>
           <a href="article/modify?id=<?=$article[0];?>">Edit Article</a>
-          <a href="">Delete Article</a>
+          <a href="article/delete?id=<?=$article[0];?>">Delete Article</a>
         <?php endif; ?>
 
       </div>

@@ -20,9 +20,10 @@ class Article
    $article = setId($queryResult['id']);
    $article = setContent($queryResult['content']);
    $article = setTitle($queryResult['title']);
+   $article = setAuthor($queryResult['author']);
    $article = setCreation_date($queryResult['creation_date']);
    $article = setEdition_date($queryResult['edition_date']);
-   $article = setAuthor($queryResult['creation_user']);
+
    return $article;
  }
 
@@ -30,28 +31,21 @@ class Article
  {
 
    $res = $this->db->readOneWithId($id, 'articles', ['*']);
-   $article = new Article($res['id'], $res['content'], $res['title'], $res['creation_date'], $res['edition_date'], $res['creation_user']);
+   $article = new Article($res['id'], $res['content'], $res['title'], $res['creation_date'], $res['edition_date'], $res['author']);
    return $article;
  }
 
  public function getArticleByTitle($title)
  {
 
-   $res = $this->db->readOneWithEmail($title, 'article', ['*']);
+   $res = $this->db->readOneWithTitle($title, 'article', ['*']);
    $article = $this->setAttributes($res);
    return $article;
  }
 
- public function getArticleByCreationDate($creation_date)
- {
-
-   $res = $this->db->readOneWithEmail($creation_date, 'article', ['*']);
-   $article = $this->setAttributes($res);
-   return $article;
- }
 
  public function createArticle($content, $title, $creation_date, $edition_date = null, $author) {
-     $fields = ['content' => $content, 'title' => $title, 'creation_date' => $creation_date, 'edition_date' => $edition_date, 'creation_user' => $creation_user];
+     $fields = ['content' => $content, 'title' => $title, 'creation_user' => $creation_user];
      $res = $this->db->create('articles', $fields);
      $this->user = $this->setAttributes($res);
  }
@@ -66,11 +60,11 @@ class Article
 
  }
 
- public function listByDate() {
-   $res = $this->db->readOneWithEmail($creation_date, 'article"', ['*']);
+ public function listByDescDate() {
+   $articles = $this->db->readAll('article"', ['*'], '', 'DESC');
    // $article = $this->setAttributes($res);
-   $article = "SELECT creation_date FROM article ORDER BY creation_date DESC";
-   return $article;
+
+   return $articles;
  }
 
  //GETTERS
@@ -124,9 +118,9 @@ class Article
    $this->edition_date = $edition_date;
  }
 
- public function setCreationUser($creation_user)
+ public function setAuthor($author)
  {
-   $this->creation_user = $creation_user;
+   $this->$author = $author;
  }
 
  public function setTag() {

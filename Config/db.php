@@ -64,7 +64,24 @@ class Database
     return $res;
   }
 
-  public function readAll($table, $fields = array(), $limit = null)
+  public function readOneWithTitle($title, $table, $fields = array())
+  {
+    $str = '';
+    for($i=0;$i<count($fields);$i++)
+    {
+      $str .= $fields[$i].', ';
+    }
+    $str = substr($str, 0, -2);
+    $query = "SELECT $str FROM $table WHERE title = '".$title."'";
+
+    $pdo = $this->getConnection();
+    $tmp = $pdo->prepare($query);
+    $tmp->execute(array($email));
+    $res = $tmp->fetch(PDO::FETCH_ASSOC);
+    return $res;
+  }
+
+  public function readAll($table, $fields = array(), $limit = null, $sort = null)
  {
    $str = '';
    for($i=0;$i<count($fields);$i++)
@@ -80,10 +97,6 @@ class Database
    {
      $query = "SELECT ".$str." FROM ".$table."";
    }
-
-   echo '<br>';
-   echo $query;
-   echo '<br>';
    $pdo = $this->getConnection();
    $tmp = $pdo->prepare($query);
    $tmp->execute();

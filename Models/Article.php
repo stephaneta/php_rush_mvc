@@ -9,7 +9,7 @@ class Article
  private $title;
  private $creation_date;
  private $edition_date;
- private $author;
+ private $author_id;
 
  public function __construct(Database $db) {
    $this->db = $db;
@@ -20,7 +20,7 @@ class Article
    $article->setId($queryResult['id']);
    $article->setContent($queryResult['content']);
    $article->setTitle($queryResult['title']);
-   $article->setAuthor($queryResult['author']);
+   $article->setAuthor_id($queryResult['author_id']);
    $article->setCreationdate($queryResult['creation_date']);
    $article->setEditionDate($queryResult['edition_date']);
    return $article;
@@ -42,9 +42,8 @@ class Article
    return $article;
  }
 
-
- public function createArticle($content, $title, $creation_date, $edition_date = null, $author) {
-     $fields = ['content' => $content, 'title' => $title, 'creation_user' => $creation_user];
+ public function createArticle($title, $content, $author) {
+     $fields = ['content' => $content, 'title' => $title, 'author_id' => $author];
      $res = $this->db->create('articles', $fields);
      $this->user = $this->setAttributes($res);
  }
@@ -61,8 +60,6 @@ class Article
 
  public function listByDescDate() {
    $articles = $this->db->readAll('articles', ['*'], 10, 'desc');
-   // $article = $this->setAttributes($res);
-
    return $articles;
  }
 
@@ -87,7 +84,7 @@ class Article
    return $this->edition_date;
  }
 
- public function getAuthor() {
+ public function getAuthor_id() {
    return $this->author;
  }
 
@@ -117,7 +114,7 @@ class Article
    $this->edition_date = $edition_date;
  }
 
- public function setAuthor($author)
+ public function setAuthor_id($author)
  {
    $this->author = $author;
  }

@@ -52,6 +52,10 @@ class Router{
       'controller' => 'Articles',
       'action' => 'create'
     ],
+    PATH.'article/modify' => [
+      'controller' => 'Articles',
+      'action' => 'modifyArticle'
+    ],
 
   ];
 }

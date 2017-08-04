@@ -22,15 +22,17 @@
         <p><?=$article[4];?></p>
         <a href="article/view?id=<?=$article[0];?>">View Article</a>
         <?php if($_SESSION['groupe'] == 'admin'): ?>
-          <a href="#">Edit Article</a>
-          <a href="#">Delete Article</a>
+          <a href="article/modify?id=<?=$article[0];?>">Edit Article</a>
+          <a href="">Delete Article</a>
         <?php endif; ?>
 
       </div>
     <?php endforeach; ?>
   </div>
   <div class="sideMenu">
+    <?php if($_SESSION['groupe'] == 'admin' || $_SESSION['groupe'] == 'writer') :?>
     <a href="article/create">Create article</a>
+  <?php endif; ?>
   </div>
 
 

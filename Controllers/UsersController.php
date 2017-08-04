@@ -27,9 +27,7 @@ class UsersController extends AppController{
         $user = $this->model;
         $password = sha1($password);
         $user->createUser($username, $password, $email);
-        $_SESSION['auth'] = $user->getEmail();
-        $_SESSION['groupe'] = $user->getGroupe();
-        $this->render('Layouts/home.php');
+        $this->login();
       }
       else{
         $this->render();

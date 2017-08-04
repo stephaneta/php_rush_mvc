@@ -16,5 +16,6 @@
         <input class="" value="Go" type="submit"/>
       </form>
     </div>
+    <a href="user/register">Register</a>
   </body>
 </html>

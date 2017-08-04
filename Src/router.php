@@ -34,7 +34,7 @@ class Router{
     ],
     PATH.'user/delete' => [
       'controller' => 'Users',
-      'action' => 'adminDelete'
+      'action' => 'delete'
     ],
     PATH.'users/adminModify' => [
       'controller' => 'Users',

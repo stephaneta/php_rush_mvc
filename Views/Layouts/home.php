@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="home/changeme/php_rush_mvc/Webroot/Css/style.css">
   </head>
   <body>
+    <?php var_dump($_SESSION['auth']); ?>
+  
+    <?php var_dump($_SESSION['auth']); ?>
     <?php include 'header.php'; ?>
     <a href="user/login">login</a>
     <a href="user/logout">logout</a>

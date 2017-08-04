@@ -25,6 +25,7 @@
       <input type='password' name='password_confirmation' id='password_confirmation' minlenght=8 maxlenght=20/>
       <input type='submit' name='Submit' value='Submit'/>
     </form>
+    <a href="../">Login</a>
 
   </body>
 </html>

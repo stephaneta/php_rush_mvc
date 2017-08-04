@@ -61,7 +61,7 @@ class Article
  }
 
  public function listByDescDate() {
-   $articles = $this->db->readAll('article"', ['*'], '', 'DESC');
+   $articles = $this->db->readAll('articles', ['*'], 10, 'desc');
    // $article = $this->setAttributes($res);
 
    return $articles;
@@ -126,6 +126,7 @@ class Article
  public function setTag() {
   $res = $this->db->readOneWithEmail($creation_date, 'article"', ['*']);
   $article = "SELECT * FROM article";
-  $tag = array($article, [*]);
+  $tag = array($article, ['*']);
+}
 }
 ?>

@@ -93,6 +93,11 @@ class Database
    {
      $query = "SELECT ".$str." FROM ".$table." LIMIT $limit";
    }
+   if($sort != null && $limit != null)
+   {
+     //SELECT * FROM articles ORDER BY creation_date LIMIT 10
+     $query = "SELECT $str FROM $table ORDER BY creation_date $sort LIMIT $limit ";
+   }
    else
    {
      $query = "SELECT ".$str." FROM ".$table."";

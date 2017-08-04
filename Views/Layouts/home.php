@@ -6,14 +6,28 @@
     <link rel="stylesheet" href="Webroot/Css/style.css">
   </head>
   <body>
-    <?php var_dump($_SESSION['auth']); ?>
 
-    <?php var_dump($_SESSION['auth']); ?>
     <?php include 'header.php'; ?>
-    <a href="user/login">login</a>
-    <a href="user/logout">logout</a>
-    <a href="user/register">register</a>
-    <a href="user/modify">modify account</a>
+    <?php $articles = $array['articles']; ?>
+
+    <div class="articleslist">
+      <?php foreach ($articles as $article): ?>
+        <div class="article">
+
+            <h3><?=$article[1];?></h3>
+            <p><?=$article[2];?></p>
+            <p><?=$article[3];?></p>
+            <p><?=$article[4];?></p>
+            <a href="#">View Article</a>
+            <?php if($_SESSION['groupe'] == 'admin'): ?>
+            <a href="#">Edit Article</a>
+            <a href="#">Delete Article</a>
+          <?php endif; ?>
+
+        </div>
+      <?php endforeach; ?>
+
+    </div>
 
   </body>
 </html>

@@ -2,7 +2,18 @@ body{
 
 }
 
+header{
+    background-color: grey;
+
+}
 
 header ul li{
   display: inline-block;
+  background-color: grey;
+}
+
+.article{
+  border: 1px solid black;
+  width: 600px;
+  margin: 10px;
 }

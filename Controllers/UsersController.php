@@ -1,5 +1,4 @@
 <?php
-//check pool_php_d09 ex_09 for registration and login with session
 
 require 'AppController.php';
 
@@ -8,7 +7,6 @@ class UsersController extends AppController{
   public function __construct()
   {
     $this->loadModel('User');
-    //var_dump ($this->model);
   }
 
   public function register()
@@ -54,6 +52,7 @@ class UsersController extends AppController{
         {
             $_SESSION['auth'] = $user->getEmail();
             $_SESSION['groupe'] = $user->getGroupe();
+            header('Location: ../home');
             $this->render('Layouts/home.php');
             return;
         }

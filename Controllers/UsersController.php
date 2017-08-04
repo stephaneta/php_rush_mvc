@@ -43,7 +43,6 @@ class UsersController extends AppController{
 
   public function login()
   {
-
     if(isset($_SESSION['auth']))
     {
       $this->render('Layouts/home.php');
@@ -73,7 +72,7 @@ class UsersController extends AppController{
   {
     if (!isset($_SESSION['auth']))
     {
-      $this->render('login.php');
+      $this->login();
       return;
     }
     $email = $_SESSION['auth'];

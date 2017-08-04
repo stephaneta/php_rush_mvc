@@ -10,7 +10,7 @@ class ArticlesController extends AppController{
     if(!isset($_SESSION['auth']))
     {
       $usersController = new UsersController();
-      $usersController->render('login.php');
+      $usersController->login();
       return;
     }
     $this->render('Layouts/home.php');

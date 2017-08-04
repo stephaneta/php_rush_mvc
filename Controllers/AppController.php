@@ -44,6 +44,11 @@ class AppController{
 
   }
 
+  public function header($path)
+  {
+    return header("location: $path");
+  }
+
   public function beforeRender()
   {
 

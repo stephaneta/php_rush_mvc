@@ -52,7 +52,7 @@ class UsersController extends AppController{
         {
             $_SESSION['auth'] = $user->getEmail();
             $_SESSION['groupe'] = $user->getGroupe();
-            header('Location: ../home');
+            $this->header('../home');
             $this->render('Layouts/home.php');
             return;
         }
@@ -78,6 +78,7 @@ class UsersController extends AppController{
     echo '<br>';
     unset($_SESSION['auth']);
     unset($_SESSION['groupe']);
+    $this->header('login');
     $this->render('login.php');
     return;
 
@@ -103,7 +104,7 @@ class UsersController extends AppController{
         $password = sha1($password);
         $fields = ['username' => $username, 'email' => $email, 'hashedPassword' => $password];
         $user->updateUser($user->getId(), $fields);
-
+        $this->header('../home');
         $this->render('Layouts/home.php');
       }
       else{
@@ -233,7 +234,7 @@ class UsersController extends AppController{
       $user = $this->model->getUserByEmail($_SESSION['auth']);
       if($user->getGroupe() != 'admin')
       {
-        echo 'non';
+        $this->header('../');
         $this->render('Layouts/home.php');
         return;
       }

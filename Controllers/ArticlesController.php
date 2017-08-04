@@ -14,6 +14,7 @@ class ArticlesController extends AppController{
     if(!isset($_SESSION['auth']))
     {
       $usersController = new UsersController();
+      $this->header('user/login');
       $usersController->login();
       return;
     }

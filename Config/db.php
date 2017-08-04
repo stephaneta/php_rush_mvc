@@ -38,7 +38,6 @@ class Database
     }
     $str = substr($str, 0, -2);
     $query = "SELECT ".$str." FROM ".$table." WHERE id = ".$id."";
-    var_dump($query);
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($id));
@@ -55,8 +54,6 @@ class Database
     }
     $str = substr($str, 0, -2);
     $query = "SELECT $str FROM $table WHERE email = '".$email."'";
-    var_dump($query);
-    echo '<br>';
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($email));
@@ -127,7 +124,6 @@ class Database
     echo '<br>';
     echo $query;
     echo '<br>';
-    var_dump($values);
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute($values);
@@ -155,7 +151,6 @@ class Database
   public function delete($id, $table)
   {
     $query = "DELETE FROM $table WHERE id = $id";
-    var_dump($query);
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($id));

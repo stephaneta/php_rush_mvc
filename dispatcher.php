@@ -23,7 +23,6 @@ class Dispatcher{
     {
       $pieces = explode('?', $url);
       unset($pieces[1]);
-      var_dump($pieces[0]);
       $url = $pieces[0];
       if (array_key_exists($url, $this->routes))
       {

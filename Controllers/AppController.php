@@ -19,8 +19,6 @@ class AppController{
 
     if(preg_match( '/Layouts/', $view))
     {
-
-      var_dump($this->viewPath.$view);
       include_once $this->viewPath.$view;
       return;
     }
@@ -36,8 +34,6 @@ class AppController{
     else{
       $class = get_called_class().'/';
       $class = str_replace('Controller', "", $class);
-      echo $class;
-      echo $this->viewPath.$class.$view;
       include_once $this->viewPath.$class.$view;
       return;
     }

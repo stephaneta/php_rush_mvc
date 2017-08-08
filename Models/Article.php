@@ -42,13 +42,12 @@ class Article
    return $article;
  }
 
- // public function getArticlesByAuthor($author)
- // {
- //
- //   $res = $this->db->readOneWithVariable('author_id', $author, 'articles', ['*']);
- //   $article = $this->setAttributes($res);
- //   return $articles;
- // }
+ public function getArticlesByAuthor($author)
+ {
+
+   $res = $this->db->readAllWithVariable('author_id', $author, 'articles', ['*']);
+    return $res;
+ }
 
  public function createArticle($title, $content, $author) {
      $fields = ['content' => $content, 'title' => $title, 'author_id' => $author];

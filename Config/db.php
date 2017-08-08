@@ -29,7 +29,7 @@ class Database
   }
 
 
-  public function readOneWithVariable($key, $value, $table, $fields = array())
+  public function readAllWithVariable($key, $value, $table, $fields = array())
   {
     $str = '';
     for($i=0;$i<count($fields);$i++)
@@ -41,7 +41,7 @@ class Database
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute(array($value));
-    $res = $tmp->fetch(PDO::FETCH_ASSOC);
+    $res = $tmp->fetchAll(PDO::FETCH_ASSOC);
     return $res;
   }
 
@@ -131,15 +131,8 @@ class Database
       $strCol.= $key.' = ?, ';
       $values[] = $value;
     }
-
     $strCol = substr($strCol, 0, -2);
-    echo $strCol;
-    echo '<br>';
-
     $query = "UPDATE ".$table." SET ".$strCol." ,edition_date= NOW() WHERE id = ".$id."";
-    echo '<br>';
-    echo $query;
-    echo '<br>';
     $pdo = $this->getConnection();
     $tmp = $pdo->prepare($query);
     $tmp->execute($values);

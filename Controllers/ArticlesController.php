@@ -12,9 +12,10 @@ class ArticlesController extends AppController{
 
   public function home()
   {
+    $usersController = new UsersController();
+    $userModel = $usersController->model;
     if(!isset($_SESSION['auth']))
     {
-      $usersController = new UsersController();
       $this->header('user/login');
       $usersController->login();
       return;
@@ -22,7 +23,9 @@ class ArticlesController extends AppController{
     $articles = $this->model->listByDescDate();
     $articleArray = [];
     foreach ($articles as $key => $val) {
-      $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author_id'], $val['creation_date'], $val['edition_date']];
+      $author = $userModel->getUserById($val['author_id']);
+      $author = $author->getUsername();
+      $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author_id'], $val['creation_date'], $val['edition_date'], $author];
     }
 
     //$this->header('home');
@@ -39,7 +42,7 @@ class ArticlesController extends AppController{
     $this->render('', ['article' => $articleArray]);
   }
 
-  public function viewByAuthor()
+  public function viewAllOfAuthor()
   {
     $email = $_SESSION['auth'];
     $usersController = new UsersController();
@@ -52,7 +55,7 @@ class ArticlesController extends AppController{
       $articleArray[] = [$val['id'], $val['title'], $val['content'], $val['author_id'], $val['creation_date'], $val['edition_date']];
     }
 
-    $this->render('', ['article' => $articleArray]);
+    $this->render('', ['articles' => $articleArray]);
   }
 
   public function create()
@@ -67,7 +70,6 @@ class ArticlesController extends AppController{
       $userModel = $usersController->loadModel('user');
       $user = $userModel->getUserByEmail($_SESSION['auth']);
       $author = $user->getId();
-      var_dump($author);
 
       if($this->checkForm($title, $content))
       {

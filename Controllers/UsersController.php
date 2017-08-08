@@ -58,7 +58,6 @@ class UsersController extends AppController{
         }
         else
         {
-          echo $user->getHashedPassword();
           $_SESSION['errors'] = "Incorrect email/password";
         }
     }
@@ -74,8 +73,6 @@ class UsersController extends AppController{
     }
     $email = $_SESSION['auth'];
     $user = $this->model->getUserByEmail($email);
-    echo'in';
-    echo '<br>';
     unset($_SESSION['auth']);
     unset($_SESSION['groupe']);
     $this->header('login');
@@ -128,8 +125,18 @@ class UsersController extends AppController{
 
   public function adminModify($id)
   {
+    if(!isset($_SESSION['auth']))
+      $this->render('user/login.php');
+
+      $user = $this->model->getUserById($id);
+      if($user->getGroupe() == 'admin')
+      {
+        $error[] = "Vous ne pouvez pas supprimer un administrateur";
+        $_SESSION['errors'] = $error;
+        $this->index();
+        return;
+      }
     $user = $this->model->getUserById($id);
-    var_dump($user);
     if(isset($_SESSION['errors']))
       $_SESSION['errors'] = "";
     if($_POST)

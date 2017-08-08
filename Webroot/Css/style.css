@@ -1,12 +1,39 @@
 body{
-
 }
-
+.wrapper{
+  width: 80%;
+  margin: 0 auto;
+}
 header{
     background-color: grey;
+    margin-bottom: 3.5em;
+}
+.container{
+  display: flex;
+  justify-content: space-between;
+}
+li{
+  padding: 0 0.2em 0 0.2em;
+  display: inline-block;
+}
+.articleslist{
+  display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: flex-start;
+  border-color: red;
+}
+.article{
+  width: 45%;
+  background-color: lightGray;
+  margin: 0.4em 0 0.4em 0;
+}
+.admiPanel{
 
 }
-
+.user{
+  margin-right: 5em;
+}
 header ul li{
   display: inline-block;
   background-color: grey;

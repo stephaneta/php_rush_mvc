@@ -46,7 +46,7 @@ class Router{
     ],
     PATH.'user/articles/view' => [
       'controller' => 'Articles',
-      'action' => 'ViewByAuthor'
+      'action' => 'viewAllOfAuthor'
     ],
     PATH.'article/view' => [
       'controller' => 'Articles',
